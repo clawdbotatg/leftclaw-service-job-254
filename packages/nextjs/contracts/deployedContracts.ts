@@ -4,6 +4,1235 @@
  */
 import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 
-const deployedContracts = {} as const;
+const deployedContracts = {
+  8453: {
+    PermissionlessIndexer: {
+      address: "0x927247a3cd0a880475a617bf01ae7f615151087c",
+      abi: [
+        {
+          type: "constructor",
+          inputs: [
+            {
+              name: "treasury",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "uniswapPool",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "BASE_SLASH_COOLDOWN_SECS",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "uint32",
+              internalType: "uint32",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "BASE_SLASH_PCT_BPS",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "uint16",
+              internalType: "uint16",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "BEACON_ROOTS_ADDRESS",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "BOOST_SLASH_PCT_BPS",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "uint16",
+              internalType: "uint16",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "BOOST_WITHDRAWAL_COOLDOWN",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "uint32",
+              internalType: "uint32",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "CLAWD",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "DEAD_ADDRESS",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "DISPUTE_COUNTER_STAKE_BPS",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "uint16",
+              internalType: "uint16",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "DISPUTE_RESPONSE_SECS",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "uint32",
+              internalType: "uint32",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "DISPUTE_WINDOW_SECS",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "uint32",
+              internalType: "uint32",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "DOMAIN_SEPARATOR",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "MIN_BASE_STAKE_USDC",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "uint96",
+              internalType: "uint96",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "MIN_COUNTER_STAKE",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "uint96",
+              internalType: "uint96",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "MIN_QUERY_FEE",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "uint96",
+              internalType: "uint96",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "MIN_QUERY_FOR_REPUTATION",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "uint96",
+              internalType: "uint96",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "POOL_FEE",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "uint24",
+              internalType: "uint24",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "PROTOCOL_VERSION",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "uint16",
+              internalType: "uint16",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "TREASURY",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "TWAP_WINDOW_SECS",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "uint32",
+              internalType: "uint32",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "UNISWAP_V3_POOL",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "UNISWAP_V3_ROUTER",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "USDC",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "baseSlashCooldownUntil",
+          inputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "uint32",
+              internalType: "uint32",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "baseSlashCount",
+          inputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "uint8",
+              internalType: "uint8",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "baseStake",
+          inputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "uint96",
+              internalType: "uint96",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "buybackReserveUSDC",
+          inputs: [],
+          outputs: [
+            {
+              name: "",
+              type: "uint96",
+              internalType: "uint96",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "commitDispute",
+          inputs: [
+            {
+              name: "commitHash",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "depositBaseStake",
+          inputs: [
+            {
+              name: "amount",
+              type: "uint96",
+              internalType: "uint96",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "deregister",
+          inputs: [
+            {
+              name: "regId",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "disputes",
+          inputs: [
+            {
+              name: "",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+          ],
+          outputs: [
+            {
+              name: "disputer",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "regId",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+            {
+              name: "counterStake",
+              type: "uint96",
+              internalType: "uint96",
+            },
+            {
+              name: "openedAt",
+              type: "uint32",
+              internalType: "uint32",
+            },
+            {
+              name: "status",
+              type: "uint8",
+              internalType: "uint8",
+            },
+            {
+              name: "commitHash",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+            {
+              name: "revealed",
+              type: "bool",
+              internalType: "bool",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "executeBuyback",
+          inputs: [
+            {
+              name: "minClawdOut",
+              type: "uint96",
+              internalType: "uint96",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "getCounterStakeBps",
+          inputs: [
+            {
+              name: "disputer",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "uint16",
+              internalType: "uint16",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "getReputation",
+          inputs: [
+            {
+              name: "regId",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "tuple",
+              internalType: "struct IPermissionlessIndexer.Reputation",
+              components: [
+                {
+                  name: "indexer",
+                  type: "address",
+                  internalType: "address",
+                },
+                {
+                  name: "boostStake",
+                  type: "uint96",
+                  internalType: "uint96",
+                },
+                {
+                  name: "uniqueConsumers",
+                  type: "uint32",
+                  internalType: "uint32",
+                },
+                {
+                  name: "totalQueries",
+                  type: "uint32",
+                  internalType: "uint32",
+                },
+                {
+                  name: "disputesLost",
+                  type: "uint32",
+                  internalType: "uint32",
+                },
+                {
+                  name: "disputesWon",
+                  type: "uint32",
+                  internalType: "uint32",
+                },
+                {
+                  name: "firstQueryTs",
+                  type: "uint32",
+                  internalType: "uint32",
+                },
+                {
+                  name: "reputationAge",
+                  type: "uint256",
+                  internalType: "uint256",
+                },
+              ],
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "hasCounted",
+          inputs: [
+            {
+              name: "",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "bool",
+              internalType: "bool",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "lastQueryTs",
+          inputs: [
+            {
+              name: "",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "uint32",
+              internalType: "uint32",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "lostDisputeCount",
+          inputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "uint8",
+              internalType: "uint8",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "openDispute",
+          inputs: [
+            {
+              name: "regId",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+            {
+              name: "queryNonce",
+              type: "uint256",
+              internalType: "uint256",
+            },
+            {
+              name: "secret",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "openDisputeCount",
+          inputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "uint8",
+              internalType: "uint8",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "pendingCommits",
+          inputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "queryNonces",
+          inputs: [
+            {
+              name: "",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "recordQuery",
+          inputs: [
+            {
+              name: "regId",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+            {
+              name: "consumer",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "fee",
+              type: "uint96",
+              internalType: "uint96",
+            },
+            {
+              name: "sig",
+              type: "bytes",
+              internalType: "bytes",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "registerBatch",
+          inputs: [
+            {
+              name: "registrations",
+              type: "tuple[]",
+              internalType: "struct IPermissionlessIndexer.Registration[]",
+              components: [
+                {
+                  name: "target",
+                  type: "address",
+                  internalType: "address",
+                },
+                {
+                  name: "eventSig",
+                  type: "bytes32",
+                  internalType: "bytes32",
+                },
+                {
+                  name: "boost",
+                  type: "uint96",
+                  internalType: "uint96",
+                },
+              ],
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "regs",
+          inputs: [
+            {
+              name: "",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+          ],
+          outputs: [
+            {
+              name: "indexer",
+              type: "address",
+              internalType: "address",
+            },
+            {
+              name: "registeredAt",
+              type: "uint32",
+              internalType: "uint32",
+            },
+            {
+              name: "boostStake",
+              type: "uint96",
+              internalType: "uint96",
+            },
+            {
+              name: "uniqueConsumers",
+              type: "uint32",
+              internalType: "uint32",
+            },
+            {
+              name: "totalQueries",
+              type: "uint32",
+              internalType: "uint32",
+            },
+            {
+              name: "disputesLost",
+              type: "uint32",
+              internalType: "uint32",
+            },
+            {
+              name: "disputesWon",
+              type: "uint32",
+              internalType: "uint32",
+            },
+            {
+              name: "firstQueryTs",
+              type: "uint32",
+              internalType: "uint32",
+            },
+            {
+              name: "withdrawableAt",
+              type: "uint32",
+              internalType: "uint32",
+            },
+            {
+              name: "deregistered",
+              type: "bool",
+              internalType: "bool",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "reputationAge",
+          inputs: [
+            {
+              name: "regId",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+          ],
+          outputs: [
+            {
+              name: "",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+          stateMutability: "view",
+        },
+        {
+          type: "function",
+          name: "resolveDefaulted",
+          inputs: [
+            {
+              name: "disputeId",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "respondDispute",
+          inputs: [
+            {
+              name: "disputeId",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+            {
+              name: "receiptProof",
+              type: "bytes",
+              internalType: "bytes",
+            },
+            {
+              name: "beaconProof",
+              type: "bytes",
+              internalType: "bytes",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "withdrawBaseStake",
+          inputs: [
+            {
+              name: "amount",
+              type: "uint96",
+              internalType: "uint96",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "function",
+          name: "withdrawBoost",
+          inputs: [
+            {
+              name: "regId",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+          ],
+          outputs: [],
+          stateMutability: "nonpayable",
+        },
+        {
+          type: "event",
+          name: "BaseStakeDeposited",
+          inputs: [
+            {
+              name: "indexer",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "amount",
+              type: "uint96",
+              indexed: false,
+              internalType: "uint96",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "BaseStakeSlashed",
+          inputs: [
+            {
+              name: "indexer",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "amount",
+              type: "uint96",
+              indexed: false,
+              internalType: "uint96",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "BaseStakeWithdrawn",
+          inputs: [
+            {
+              name: "indexer",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "amount",
+              type: "uint96",
+              indexed: false,
+              internalType: "uint96",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "BoostStakeSlashed",
+          inputs: [
+            {
+              name: "regId",
+              type: "bytes32",
+              indexed: true,
+              internalType: "bytes32",
+            },
+            {
+              name: "amount",
+              type: "uint96",
+              indexed: false,
+              internalType: "uint96",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "BoostWithdrawn",
+          inputs: [
+            {
+              name: "regId",
+              type: "bytes32",
+              indexed: true,
+              internalType: "bytes32",
+            },
+            {
+              name: "indexer",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "amount",
+              type: "uint96",
+              indexed: false,
+              internalType: "uint96",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "BuybackExecuted",
+          inputs: [
+            {
+              name: "usdcSpent",
+              type: "uint96",
+              indexed: false,
+              internalType: "uint96",
+            },
+            {
+              name: "clawdBurned",
+              type: "uint256",
+              indexed: false,
+              internalType: "uint256",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "Deregistered",
+          inputs: [
+            {
+              name: "regId",
+              type: "bytes32",
+              indexed: true,
+              internalType: "bytes32",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "DisputeCommitted",
+          inputs: [
+            {
+              name: "disputer",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "commitHash",
+              type: "bytes32",
+              indexed: false,
+              internalType: "bytes32",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "DisputeOpened",
+          inputs: [
+            {
+              name: "disputeId",
+              type: "bytes32",
+              indexed: true,
+              internalType: "bytes32",
+            },
+            {
+              name: "regId",
+              type: "bytes32",
+              indexed: true,
+              internalType: "bytes32",
+            },
+            {
+              name: "disputer",
+              type: "address",
+              indexed: false,
+              internalType: "address",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "DisputeResolved",
+          inputs: [
+            {
+              name: "disputeId",
+              type: "bytes32",
+              indexed: true,
+              internalType: "bytes32",
+            },
+            {
+              name: "outcome",
+              type: "uint8",
+              indexed: false,
+              internalType: "uint8",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "QueryRecorded",
+          inputs: [
+            {
+              name: "regId",
+              type: "bytes32",
+              indexed: true,
+              internalType: "bytes32",
+            },
+            {
+              name: "consumer",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "fee",
+              type: "uint96",
+              indexed: false,
+              internalType: "uint96",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "Registered",
+          inputs: [
+            {
+              name: "indexer",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "regId",
+              type: "bytes32",
+              indexed: true,
+              internalType: "bytes32",
+            },
+            {
+              name: "target",
+              type: "address",
+              indexed: false,
+              internalType: "address",
+            },
+            {
+              name: "eventSig",
+              type: "bytes32",
+              indexed: false,
+              internalType: "bytes32",
+            },
+            {
+              name: "boost",
+              type: "uint96",
+              indexed: false,
+              internalType: "uint96",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "event",
+          name: "ReputationMilestone",
+          inputs: [
+            {
+              name: "indexer",
+              type: "address",
+              indexed: true,
+              internalType: "address",
+            },
+            {
+              name: "regId",
+              type: "bytes32",
+              indexed: true,
+              internalType: "bytes32",
+            },
+            {
+              name: "uniqueConsumers",
+              type: "uint32",
+              indexed: false,
+              internalType: "uint32",
+            },
+          ],
+          anonymous: false,
+        },
+        {
+          type: "error",
+          name: "ECDSAInvalidSignature",
+          inputs: [],
+        },
+        {
+          type: "error",
+          name: "ECDSAInvalidSignatureLength",
+          inputs: [
+            {
+              name: "length",
+              type: "uint256",
+              internalType: "uint256",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "ECDSAInvalidSignatureS",
+          inputs: [
+            {
+              name: "s",
+              type: "bytes32",
+              internalType: "bytes32",
+            },
+          ],
+        },
+        {
+          type: "error",
+          name: "SafeERC20FailedOperation",
+          inputs: [
+            {
+              name: "token",
+              type: "address",
+              internalType: "address",
+            },
+          ],
+        },
+      ],
+      inheritedFunctions: {},
+      deployedOnBlock: 47121689,
+    },
+  },
+} as const;
 
 export default deployedContracts satisfies GenericContractsDeclaration;
