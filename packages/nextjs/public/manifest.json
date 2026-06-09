@@ -1,5 +1,5 @@
 {
-  "name": "Scaffold-ETH 2 DApp",
-  "description": "A DApp built with Scaffold-ETH",
+  "name": "PermissionlessIndexer",
+  "description": "Agent-native on-demand event indexer on Base",
   "iconPath": "logo.svg"
 }
