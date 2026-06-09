@@ -96,6 +96,14 @@ contract PermissionlessIndexer is IPermissionlessIndexer {
     uint96 public buybackReserveUSDC;
 
     /*//////////////////////////////////////////////////////////////
+                          STAKE/BOOST EVENTS
+    //////////////////////////////////////////////////////////////*/
+
+    event BaseStakeDeposited(address indexed indexer, uint96 amount);
+    event BaseStakeWithdrawn(address indexed indexer, uint96 amount);
+    event BoostWithdrawn(bytes32 indexed regId, address indexed indexer, uint96 amount);
+
+    /*//////////////////////////////////////////////////////////////
                             REENTRANCY GUARD
     //////////////////////////////////////////////////////////////*/
 
@@ -128,7 +136,7 @@ contract PermissionlessIndexer is IPermissionlessIndexer {
                 DOMAIN_TYPEHASH,
                 keccak256(bytes("PermissionlessIndexer")),
                 keccak256(bytes("1")),
-                uint256(8453),
+                block.chainid,
                 address(this)
             )
         );
@@ -142,6 +150,7 @@ contract PermissionlessIndexer is IPermissionlessIndexer {
         require(amount > 0, "amount=0");
         baseStake[msg.sender] += amount;
         IERC20(USDC).safeTransferFrom(msg.sender, address(this), amount);
+        emit BaseStakeDeposited(msg.sender, amount);
     }
 
     function withdrawBaseStake(uint96 amount) external nonReentrant {
@@ -153,6 +162,7 @@ contract PermissionlessIndexer is IPermissionlessIndexer {
 
         baseStake[msg.sender] = current - amount;
         IERC20(USDC).safeTransfer(msg.sender, amount);
+        emit BaseStakeWithdrawn(msg.sender, amount);
     }
 
     /*//////////////////////////////////////////////////////////////
@@ -178,10 +188,21 @@ contract PermissionlessIndexer is IPermissionlessIndexer {
             Registration calldata r = registrations[i];
             bytes32 regId = keccak256(abi.encodePacked(msg.sender, r.target, r.eventSig));
 
-            RegData storage reg = regs[regId];
+            RegData storage existing = regs[regId];
             // Active = previously registered by this indexer and not deregistered.
-            require(!(reg.indexer == msg.sender && !reg.deregistered), "already registered");
+            require(!(existing.indexer == msg.sender && !existing.deregistered), "already registered");
 
+            if (existing.deregistered) {
+                // Block re-registration while boost withdrawal is pending.
+                require(
+                    existing.boostStake == 0 && block.timestamp >= existing.withdrawableAt,
+                    "boost withdrawal pending"
+                );
+                // Now safe to re-register: reset the slot.
+                delete regs[regId];
+            }
+
+            RegData storage reg = regs[regId];
             reg.indexer = msg.sender;
             reg.registeredAt = uint32(block.timestamp);
             reg.boostStake = r.boost;
@@ -220,6 +241,7 @@ contract PermissionlessIndexer is IPermissionlessIndexer {
         if (amount > 0) {
             IERC20(USDC).safeTransfer(msg.sender, amount);
         }
+        emit BoostWithdrawn(regId, msg.sender, amount);
     }
 
     /*//////////////////////////////////////////////////////////////
@@ -335,6 +357,9 @@ contract PermissionlessIndexer is IPermissionlessIndexer {
     ///      `receiptsRoot`.
     ///      NOTE: Production deployments should replace this with a full MPT verifier (RLP + Patricia
     ///      trie), e.g. Optimism's LibMPT. The simplified scheme here is NOT a sound consensus proof.
+    // NOTE: _verifyBeaconProof uses a simplified (non-production) SSZ/MPT verifier.
+    // Until replaced with a full verifier library, disputed queries always resolve as defaulted.
+    // See GitHub issue #4: https://github.com/clawdbotatg/leftclaw-service-job-254/issues/4
     function respondDispute(bytes32 disputeId, bytes calldata receiptProof, bytes calldata beaconProof)
         external
         nonReentrant
@@ -357,10 +382,23 @@ contract PermissionlessIndexer is IPermissionlessIndexer {
         d.counterStake = 0;
         address disputer = d.disputer;
 
-        // Interaction: return the counter-stake to the (losing) disputer.
+        // The disputer lost: penalize them and distribute their counter-stake as a reward
+        // rather than returning it. This makes the escalating-BPS deterrent live.
+        lostDisputeCount[disputer] += 1;
+
+        uint96 indexerReward;
+        uint96 keeperReward;
+        uint96 treasuryReward;
         if (counterStake > 0) {
-            IERC20(USDC).safeTransfer(disputer, counterStake);
+            indexerReward = uint96((uint256(counterStake) * 7000) / 10000);
+            keeperReward = uint96((uint256(counterStake) * 2000) / 10000);
+            treasuryReward = counterStake - indexerReward - keeperReward;
         }
+
+        // Interactions last.
+        if (indexerReward > 0) IERC20(USDC).safeTransfer(indexer, indexerReward);
+        if (keeperReward > 0) IERC20(USDC).safeTransfer(msg.sender, keeperReward);
+        if (treasuryReward > 0) IERC20(USDC).safeTransfer(TREASURY, treasuryReward);
 
         emit DisputeResolved(disputeId, 1);
     }
@@ -372,29 +410,29 @@ contract PermissionlessIndexer is IPermissionlessIndexer {
         view
         returns (bool)
     {
-        (
-            uint64 timestamp,
-            bytes32 beaconRoot,
-            bytes32 receiptsRoot,
-            bytes32[] memory inclusionProof,
-            uint256 index,
-            bytes32 leaf
-        ) = abi.decode(beaconProof, (uint64, bytes32, bytes32, bytes32[], uint256, bytes32));
+        // beaconProof: abi.encode(uint64 timestamp, bytes32 receiptsRoot, bytes32[] proof, uint256 index, bytes32 leaf)
+        if (beaconProof.length < 64) return false;
+        (uint64 timestamp, bytes32 receiptsRoot, bytes32[] memory proof, uint256 index, bytes32 leaf) =
+            abi.decode(beaconProof, (uint64, bytes32, bytes32[], uint256, bytes32));
 
-        // (1) The EIP-4788 precompile must return the claimed beacon root for `timestamp`.
-        (bool ok, bytes memory ret) = BEACON_ROOTS_ADDRESS.staticcall(abi.encode(uint256(timestamp)));
-        if (!ok || ret.length != 32) return false;
-        if (bytes32(ret) != beaconRoot) return false;
+        // (1) Get beacon root from the EIP-4788 precompile.
+        (bool ok, bytes memory result) = BEACON_ROOTS_ADDRESS.staticcall(abi.encode(uint256(timestamp)));
+        if (!ok || result.length < 32) return false;
+        bytes32 beaconRoot = abi.decode(result, (bytes32));
 
-        // (2) The beacon root must commit to the receipts root. In a full implementation this is a
-        //     SSZ Merkle proof from the beacon block body down to the execution payload's
-        //     receiptsRoot; here we require the simple commitment keccak(beaconRoot, receiptsRoot).
-        if (receiptProof.length != 32) return false;
-        bytes32 commitment = keccak256(abi.encodePacked(beaconRoot, receiptsRoot));
-        if (commitment != bytes32(receiptProof[:32])) return false;
+        // (2) Verify that receiptsRoot is committed in the beacon state.
+        // NOTE: This is STILL SIMPLIFIED. Production must use full SSZ/MPT proof (Optimism LibMPT or equivalent).
+        // For now, verify that keccak256(timestamp, receiptsRoot) is in the beacon root commitment chain.
+        bytes32 commitment = keccak256(abi.encodePacked(bytes32(uint256(timestamp)), receiptsRoot));
+        if (commitment != beaconRoot) {
+            // If direct commitment fails, return false (production would do full SSZ proof).
+            // NOTE: This means _verifyBeaconProof will fail for real proofs until replaced with a full SSZ/MPT verifier.
+            // See GitHub issue #4 for production replacement requirements.
+            return false;
+        }
 
-        // (3) Verify keccak256 Merkle inclusion of `leaf` under `receiptsRoot`.
-        return _verifyMerkle(inclusionProof, receiptsRoot, leaf, index);
+        // (3) Verify receipt is included in receiptsRoot via simple Merkle proof.
+        return _verifyMerkle(proof, receiptsRoot, leaf, index);
     }
 
     /// @dev Standard ordered binary keccak256 Merkle inclusion check.
