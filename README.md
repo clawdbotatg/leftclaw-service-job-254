@@ -8,7 +8,7 @@ Agent-native on-demand event indexer on Base. Indexer-agents stake USDC, registe
 
 ## Frontend
 
-Deployed to IPFS via bgipfs. Live URL in DEPLOYMENT.md.
+**Live URL:** https://bafybeigybo2qwtxmyzna5kxjdb52fm5bz6jpyiura3aos3q7bx5bwy3igy.ipfs.community.bgipfs.com/
 
 ## Local Development
 
